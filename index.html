@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joenatan Susanto - Creative Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#1E40AF',
+                        accent: '#EF4444',
+                        dark: '#1F2937',
+                        light: '#F9FAFB',
+                        yellow: '#FF9B21'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Enhanced Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .loader-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+        }
+        
+        .loader {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(255, 155, 33, 0.2);
+            border-radius: 50%;
+            border-top-color: #FF9B21;
+            animation: spin 1.5s ease-in-out infinite;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .loader-inner {
+            width: 80%;
+            height: 80%;
+            border: 3px solid rgba(255, 155, 33, 0.4);
+            border-radius: 50%;
+            border-top-color: #FF9B21;
+            animation: spin 1s ease-in-out infinite reverse;
+            position: absolute;
+            top: 10%;
+            left: 10%;
+        }
+        
+        .loader-dot {
+            width: 15px;
+            height: 15px;
+            background-color: #FF9B21;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .loading-subtext {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #FF9B21;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+        }
+        
+        /* Hero Section Animation */
+        .hero-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+        
+        .hero-image {
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInScale 1.2s ease forwards 0.8s;
+        }
+        
+        .hero-badge {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .hero-badge:nth-child(1) {
+            animation-delay: 1.2s;
+        }
+        
+        .hero-badge:nth-child(2) {
+            animation-delay: 1.4s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Animated Background for Hero */
+        .animated-bg {
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+        }
+        
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 155, 33, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 155, 33, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 155, 33, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 155, 33, 0.1);
+            animation: floatRandom 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+        
+        @keyframes floatRandom {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, 40px) rotate(90deg);
+            }
+            50% {
+                transform: translate(40px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(20px, -40px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        /* Enhanced Menu Styles */
+        #mobile-menu, #desktop-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 40;
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+        
+        #mobile-menu.active, #desktop-menu.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+        
+        /* Enhanced Desktop Menu */
+        #desktop-menu {
+            flex-direction: row-reverse;
+        }
+        
+        .menu-content {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 155, 33, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 155, 33, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .menu-blur {
+            width: 50%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        .img-blur {
+            width: 50%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        
+        .menu-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #FF9B21, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .menu-header:hover::after {
+            opacity: 1;
+        }
+        
+        .menu-logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-logo::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background-color: #FF9B21;
+            transition: left 0.3s ease;
+        }
+        
+        .menu-logo:hover {
+            color: #FF9B21;
+            transform: translateY(-2px);
+        }
+        
+        .menu-logo:hover::before {
+            left: 0;
+        }
+        
+        .menu-close {
+            color: white;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-close::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 155, 33, 0.1);
+            transition: left 0.3s ease;
+            border-radius: 50%;
+        }
+        
+        .menu-close:hover {
+            color: #FF9B21;
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        .menu-close:hover::before {
+            left: 0;
+        }
+        
+        .menu-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 3rem;
+        }
+        
+        .menu-nav a {
+            color: white;
+            font-size: 2.5rem;
+            margin: 1.5rem 0;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateX(-30px);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        #mobile-menu.active .menu-nav a,
+        #desktop-menu.active .menu-nav a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .menu-nav a:nth-child(1) { transition-delay: 0.1s; }
+        .menu-nav a:nth-child(2) { transition-delay: 0.2s; }
+        .menu-nav a:nth-child(3) { transition-delay: 0.3s; }
+        .menu-nav a:nth-child(4) { transition-delay: 0.4s; }
+        .menu-nav a:nth-child(5) { transition-delay: 0.5s; }
+        .menu-nav a:nth-child(6) { transition-delay: 0.6s; }
+        
+        .menu-nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 155, 33, 0.1), transparent);
+            transition: width 0.4s ease;
+            z-index: -1;
+            border-radius: 8px;
+        }
+        
+        .menu-nav a::after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #FF9B21;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-nav a:hover::before {
+            width: 100%;
+        }
+        
+        .menu-nav a:hover::after {
+            opacity: 1;
+            left: 0;
+        }
+        
+        .menu-nav a:hover {
+            color: #FF9B21;
+            transform: translateX(15px);
+            text-shadow: 0 0 10px rgba(255, 155, 33, 0.5);
+        }
+        
+        /* Enhanced Navbar Styles */
+        .navbar-scrolled {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .navbar-scrolled .nav-logo,
+        .navbar-scrolled .menu-button {
+            color: #FF9B21 !important;
+        }
+        
+        .navbar-dark .nav-logo,
+        .navbar-dark .menu-button {
+            color: white !important;
+        }
+
+        .navbar-yellow .nav-logo,
+        .navbar-yellow .menu-button {
+            color: #1F2937 !important;
+        }
+        
+        /* Enhanced Navbar Logo and Button Hover Effects */
+        .nav-logo {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background-color: #FF9B21;
+            transition: left 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            color: #FF9B21 !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-logo:hover::before {
+            left: 0;
+        }
+        
+        .menu-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        
+        .menu-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 155, 33, 0.1);
+            transition: left 0.3s ease;
+            border-radius: 8px;
+        }
+        
+        .menu-button:hover {
+            color: #FF9B21 !important;
+            transform: scale(1.1);
+        }
+        
+        .menu-button:hover::before {
+            left: 0;
+        }
+        
+        /* Button hover effects */
+        .btn-white {
+            background-color: white;
+            color: #1F2937;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-white:hover {
+            background-color: #FF9B21;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 155, 33, 0.3);
+        }
+        
+        .btn-outline-white {
+            border: 2px solid white;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-white:hover {
+            background-color: #FF9B21;
+            border-color: #FF9B21;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 155, 33, 0.3);
+        }
+        
+        .btn-outline-dark {
+            border: 2px solid #1F2937;
+            color: #1F2937;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-dark:hover {
+            background-color: #FF9B21;
+            border-color: #FF9B21;
+            color: white;
+        }
+        
+        /* Service Card Hover Effects */
+        .service-card {
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 155, 33, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 155, 33, 0.2);
+            border: 1px solid rgba(255, 155, 33, 0.3);
+        }
+        
+        .service-card:hover .service-icon-container {
+            background-color: #FF9B21;
+            transform: scale(1.1);
+        }
+        
+        .service-card:hover .service-icon {
+            color: white;
+        }
+        
+        /* Portfolio hover effect */
+        .portfolio-item:hover .portfolio-overlay {
+            background-color: rgba(255, 155, 33, 0.9);
+        }
+        
+        /* Testimonial Card Hover Effects */
+        .testimonial-card {
+            transition: all 0.4s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 155, 33, 0.2);
+            border: 1px solid rgba(255, 155, 33, 0.3);
+        }
+        
+        .testimonial-card:hover .fa-star {
+            color: #FF9B21;
+        }
+        
+        /* Contact Card Hover Effects */
+        .contact-card {
+            transition: all 0.4s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 155, 33, 0.2);
+            border: 1px solid rgba(255, 155, 33, 0.3);
+            background-color: rgba(255, 155, 33, 0.05);
+        }
+        
+        .contact-card:hover i {
+            transform: scale(1.2);
+            color: #FF9B21;
+        }
+        
+        /* Service icon color */
+        .service-icon {
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .service-icon-container {
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero section full height */
+        .hero-full {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Hero circle animation */
+        .hero-circle {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 155, 33, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 20px rgba(255, 155, 33, 0);
+            }
+        }
+        
+        /* Scroll Animation Styles */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-animate-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-animate-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-animate-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-animate-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-animate-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-animate-scale.animated {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* About Section Animations */
+        .about-image {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .about-image.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .about-content {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease 0.3s;
+        }
+        
+        .about-content.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .skill-bar {
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1.5s ease 0.8s;
+        }
+        
+        .skill-bar.animated {
+            transform: scaleX(1);
+        }
+        
+        /* Floating elements for other sections */
+        .section-with-floating {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Cursor Follower Styles */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: #6B7280; /* Gray color */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #6B7280; /* Gray color */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transition: all 0.2s ease;
+        }
+        
+        /* Hide cursor follower on mobile */
+        @media (max-width: 768px) {
+            .cursor-dot,
+            .cursor-circle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-light text-dark">
+    <!-- Cursor Follower -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- Enhanced Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <div class="loader-inner"></div>
+            <div class="loader-dot"></div>
+        </div>
+        <div class="loading-text">Joenatan Susanto</div>
+        <div class="loading-subtext">Creative Designer & UI/UX Design</div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="navbar" class="fixed w-full bg-transparent z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold nav-logo text-white">JS</a>
+                
+                <!-- Desktop Menu Button -->
+                <button id="desktop-menu-button" class="menu-button text-white hidden md:block">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="menu-button text-white md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Enhanced Desktop Menu -->
+    <div id="desktop-menu" class="desktop-menu">
+        <div class="menu-content">
+            <div class="menu-header">
+                <a href="#" class="text-2xl font-bold menu-logo">JS</a>
+                <button id="close-desktop-menu" class="menu-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="menu-nav">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+        <div class="menu-blur" id="desktop-blur"></div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="menu-content">
+            <div class="menu-header">
+                <a href="#" class="text-2xl font-bold menu-logo">JS</a>
+                <button id="close-menu" class="menu-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="menu-nav">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+        <div class="menu-blur" id="mobile-blur"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-black animated-bg text-white relative overflow-hidden hero-full">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 20%; right: 15%;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; bottom: 30%; left: 20%;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; bottom: 20%; right: 10%;"></div>
+        <div class="floating-element" style="width: 60px; height: 60px; top: 40%; left: 50%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 w-full">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 hero-content">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">Hello, I'm <span class="text-yellow">Joenatan Susanto</span></h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6">Creative Designer & UI/UX Specialist</h2>
+                    <p class="text-lg mb-8 opacity-90">I create beautiful, functional designs that help businesses stand out and connect with their audience through thoughtful user experiences.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#portfolio" class="btn-white px-8 py-3 rounded-full font-semibold">View My Work</a>
+                        <a href="#contact" class="btn-outline-white px-8 py-3 rounded-full font-semibold">Get In Touch</a>
+                    </div>
+                    <div class="flex mt-10 space-x-6">
+                        <a href="#" class="text-white hover:text-yellow transition-colors">
+                            <i class="fab fa-tiktok text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/joe_creativee?igsh=aTBtdHYzNW12M3lp" class="text-white hover:text-yellow transition-colors">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-yellow transition-colors">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="https://github.com/JoenatanSusanto?tab=overview&from=2025-11-01&to=2025-11-22" class="text-white hover:text-yellow transition-colors">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center hero-image">
+                    <div class="relative">
+                        <div class="w-64 h-64 md:w-80 md:h-80 bg-yellow/20 rounded-full flex items-center justify-center backdrop-blur-sm hero-circle">
+                            <div class="w-56 h-56 md:w-72 md:h-72 bg-yellow/30 rounded-full flex items-center justify-center hero-circle">
+                                <div class="w-48 h-48 md:w-64 md:h-64 bg-yellow rounded-full overflow-hidden shadow-2xl hero-circle">
+                                    <!-- Profile image -->
+                                    <img src="images/Me/Profile2.png" alt="Joenatan Susanto" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -top-4 -right-4 bg-yellow text-white px-4 py-2 rounded-full shadow-lg hero-badge">
+                            <span class="font-semibold">3 Years Exp</span>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 bg-yellow text-white px-4 py-2 rounded-full shadow-lg hero-badge">
+                            <span class="font-semibold">14+ Projects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <div class="relative about-image scroll-animate-left">
+                        <!-- Main About Photo -->
+                        <div class="w-full h-96 rounded-2xl shadow-xl overflow-hidden">
+                            <img src="images/Me/Profile2.png" alt="About Me" class="w-full h-full object-cover blur">
+                        </div>
+                        <!-- Secondary About Photo -->
+                        <div class="absolute -bottom-6 -right-6 w-64 h-64 rounded-2xl shadow-xl overflow-hidden">
+                            <img src="images/Me/Profile2.png" alt="Working" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 about-content scroll-animate-right">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 scroll-animate">About Me</h2>
+                    <p class="text-lg text-gray-600 mb-6 scroll-animate">I'm Joenatan Susanto, a multidisciplinary designer focused on creating impactful digital and visual experiences. At 18 years old, I've been honing my skills for the past three years in UI/UX Design, Logo Design, and 3D Modeling. I believe in a design approach that's not only aesthetic, but also functional and user-centric.</p>
+                    <p class="text-lg text-gray-600 mb-8 scroll-animate">Although I'm only 18, my practical experience has trained me to think strategically, solve problems creatively, and communicate visually. I'm always eager to take on new challenges and collaborate to create extraordinary work.</p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="scroll-animate">
+                            <h3 class="font-semibold text-lg mb-2">UI/UX Design</h3>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-yellow h-2.5 rounded-full skill-bar" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="scroll-animate">
+                            <h3 class="font-semibold text-lg mb-2">Web Development</h3>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-yellow h-2.5 rounded-full skill-bar" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="scroll-animate">
+                            <h3 class="font-semibold text-lg mb-2">Brand Identity</h3>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-yellow h-2.5 rounded-full skill-bar" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="scroll-animate">
+                            <h3 class="font-semibold text-lg mb-2">3D Modelling</h3>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-yellow h-2.5 rounded-full skill-bar" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="inline-flex items-center text-yellow font-semibold hover:text-orange-600 transition-colors scroll-animate hidden">
+                        Download CV <i class="fas fa-download ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 md:py-24 bg-black text-white section-with-floating">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 80px; height: 80px; top: 10%; left: 5%;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 20%; right: 10%;"></div>
+        <div class="floating-element" style="width: 60px; height: 60px; bottom: 30%; left: 15%;"></div>
+        <div class="floating-element" style="width: 100px; height: 100px; bottom: 20%; right: 5%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 scroll-animate">My Services</h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto scroll-animate">I offer a wide range of design services to help your business grow and stand out in the digital landscape.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card bg-gray-800 p-8 rounded-2xl shadow-lg scroll-animate">
+                    <div class="service-icon-container w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-pencil-alt text-2xl service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">UI/UX Design</h3>
+                    <p class="text-gray-300 mb-6">Creating intuitive and engaging user interfaces that provide exceptional user experiences across all devices and platforms.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>User Research & Analysis</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Wireframing & Prototyping</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Interaction Design</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card bg-gray-800 p-8 rounded-2xl shadow-lg scroll-animate" style="transition-delay: 0.2s">
+                    <div class="service-icon-container w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-code text-2xl service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Web Development</h3>
+                    <p class="text-gray-300 mb-6">Building responsive and performant websites using modern technologies and best practices for optimal user experience.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Frontend Development</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Responsive Design</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Performance Optimization</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card bg-gray-800 p-8 rounded-2xl shadow-lg scroll-animate" style="transition-delay: 0.4s">
+                    <div class="service-icon-container w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-palette text-2xl service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Brand Identity</h3>
+                    <p class="text-gray-300 mb-6">Developing unique brand identities that communicate your values and resonate with your target audience effectively.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Logo & Visual Identity</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Brand Guidelines</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Marketing Materials</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card bg-gray-800 p-8 rounded-2xl shadow-lg scroll-animate" style="transition-delay: 0.6s">
+                    <div class="service-icon-container w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-cube text-2xl service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">3D Modelling</h3>
+                    <p class="text-gray-300 mb-6">Create realistic and engaging 3D that makes your 3D project experience even more immersive.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Object Modeling</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>Character Modelling</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-yellow mr-2"></i>
+                            <span>3D Animation</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 scroll-animate">My Portfolio</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto scroll-animate">A selection of my recent projects that showcase my design approach and problem-solving skills.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="group portfolio-item relative overflow-hidden rounded-2xl shadow-lg hover-lift scroll-animate-scale">
+                    <div class="h-64 rounded-2xl overflow-hidden">
+                        <img src="images//Portofolio/Suara_Kota.png" alt="Suara-Kota App" class="w-full h-full object-cover">
+                    </div>
+                    <div class="portfolio-overlay absolute inset-0 bg-black/70 flex flex-col justify-end p-6 transition-all duration-300">
+                        <h3 class="text-white text-xl font-bold mb-2">UI/UX</h3>
+                        <p class="text-gray-300 mb-4">UI/UX design for the experience of reporting city conditions via an application</p>
+                        <a href="/document/Suara kota.pdf" class="text-white font-semibold inline-flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 2 -->
+                <div class="group portfolio-item relative overflow-hidden rounded-2xl shadow-lg hover-lift scroll-animate-scale" style="transition-delay: 0.2s">
+                    <div class="h-64 rounded-2xl overflow-hidden">
+                        <img src="images/Portofolio/Volge.png" alt="Logo Volge" class="w-full h-full object-cover">
+                    </div>
+                    <div class="portfolio-overlay absolute inset-0 bg-black/70 flex flex-col justify-end p-6 transition-all duration-300">
+                        <h3 class="text-white text-xl font-bold mb-2">Logo Design</h3>
+                        <p class="text-gray-300 mb-4">volge which has a special impression.</p>
+                        <a href="#" class="text-white font-semibold inline-flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 3 -->
+                <div class="group portfolio-item relative overflow-hidden rounded-2xl shadow-lg hover-lift scroll-animate-scale" style="transition-delay: 0.4s">
+                    <div class="h-64 rounded-2xl overflow-hidden">
+                        <img src="images/Portofolio/Car_Design.png" alt="Car Modelling" class="w-full h-full object-cover">
+                    </div>
+                    <div class="portfolio-overlay absolute inset-0 bg-black/70 flex flex-col justify-end p-6 transition-all duration-300">
+                        <h3 class="text-white text-xl font-bold mb-2">3D Modelling</h3>
+                        <p class="text-gray-300 mb-4">sophisticated street cleaning car design</p>
+                        <a href="#" class="text-white font-semibold inline-flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="border-2 border-gray-800 text-gray-800 hover:border-white hover:bg-yellow hover:text-white px-8 py-3 rounded-full font-semibold inline-flex items-center transition-all duration-300 scroll-animate">
+                    View All Projects <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 md:py-24 bg-black text-white section-with-floating">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 70px; height: 70px; top: 15%; left: 8%;"></div>
+        <div class="floating-element" style="width: 90px; height: 90px; top: 25%; right: 12%;"></div>
+        <div class="floating-element" style="width: 50px; height: 50px; bottom: 35%; left: 18%;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; bottom: 25%; right: 8%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 scroll-animate">Client Testimonials</h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto scroll-animate">What my clients say about working with me and the results we achieved together.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-gray-800 p-8 rounded-2xl shadow-lg scroll-animate">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full mr-4 overflow-hidden">
+                            <img src="images/testimonial-1.jpg" alt="Valerian" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Valerian</h4>
+                            <p class="text-gray-400 text-sm">No Information</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">"I am grateful for the service of creating a portfolio landing page website, the design is according to what I wanted, it looks good and professional, thank you"</p>
+                    <div class="flex text-white">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-gray-800 p-8 rounded-2xl shadow-lg scroll-animate" style="transition-delay: 0.2s">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full mr-4 overflow-hidden">
+                            <img src="images/testimonial-2.jpg" alt="Kevin" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Kevin</h4>
+                            <p class="text-gray-400 text-sm">No Information</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">"Thank you for making the 3D model and animation for my project, because of that I managed to win 2nd place."</p>
+                    <div class="flex text-white">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card bg-gray-800 p-8 rounded-2xl shadow-lg scroll-animate" style="transition-delay: 0.4s">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full mr-4 overflow-hidden">
+                            <img src="images/testimonial-3.jpg" alt="Cia" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Cia</h4>
+                            <p class="text-gray-400 text-sm">No Information</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">"Thank you for making a logo for my food brand, the logo design is good and suits the food I want to sell."</p>
+                    <div class="flex text-white">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-black text-white section-with-floating">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 60px; height: 60px; top: 20%; left: 10%;"></div>
+        <div class="floating-element" style="width: 100px; height: 100px; top: 30%; right: 15%;"></div>
+        <div class="floating-element" style="width: 70px; height: 70px; bottom: 40%; left: 20%;"></div>
+        <div class="floating-element" style="width: 90px; height: 90px; bottom: 30%; right: 10%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 scroll-animate">Get In Touch</h2>
+                    <p class="text-lg text-gray-300 scroll-animate">Have a project in mind or want to discuss potential collaboration? I'd love to hear from you.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 text-center">
+                    <div class="contact-card p-6 rounded-2xl bg-gray-900 scroll-animate">
+                        <i class="fas fa-envelope text-2xl text-yellow mb-4 transition-all duration-300"></i>
+                        <h3 class="font-bold mb-2">Email</h3>
+                        <p class="text-gray-300">joenatansusanto@gmail.com</p>
+                    </div>
+                    <div class="contact-card p-6 rounded-2xl bg-gray-900 scroll-animate" style="transition-delay: 0.2s">
+                        <i class="fas fa-phone text-2xl text-yellow mb-4 transition-all duration-300"></i>
+                        <h3 class="font-bold mb-2">Phone</h3>
+                        <p class="text-gray-300">+62 878-8980-8500</p>
+                    </div>
+                    <div class="contact-card p-6 rounded-2xl bg-gray-900 scroll-animate" style="transition-delay: 0.4s">
+                        <i class="fas fa-map-marker-alt text-2xl text-yellow mb-4 transition-all duration-300"></i>
+                        <h3 class="font-bold mb-2">Location</h3>
+                        <p class="text-gray-300">Indonesia, DKI Jakarta</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold text-white">JS</a>
+                    <p class="mt-2 text-gray-400">Creating beautiful digital experiences</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-yellow transition-colors">
+                        <i class="fab fa-tiktok text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joe_creativee?igsh=aTBtdHYzNW12M3lp" class="text-gray-400 hover:text-yellow transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://github.com/JoenatanSusanto?tab=overview&from=2025-11-01&to=2025-11-22" class="text-gray-400 hover:text-yellow transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+                
+                <div class="text-gray-400">
+                    <p>&copy; 2025 Joenatan Susanto. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Loading screen with progress animation
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const progressBar = document.getElementById('progress-bar');
+            
+            if (loadingScreen && progressBar) {
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 15;
+                    if (progress > 100) progress = 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    if (progress === 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            loadingScreen.style.opacity = '0';
+                            setTimeout(() => {
+                                loadingScreen.style.display = 'none';
+                            }, 800);
+                        }, 500);
+                    }
+                }, 200);
+            }
+        });
+
+        // Initialize all functionality when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initMenus();
+            initSmoothScroll();
+            initNavbarScroll();
+            createFloatingElements();
+            initScrollAnimations();
+            initCursorFollower();
+        });
+
+        // Menu functionality
+        function initMenus() {
+            const navbar = document.getElementById('navbar');
+            
+            // Mobile menu elements
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMobileMenu = document.getElementById('close-menu');
+            const mobileBlur = document.getElementById('mobile-blur');
+
+            // Desktop menu elements
+            const desktopMenuButton = document.getElementById('desktop-menu-button');
+            const desktopMenu = document.getElementById('desktop-menu');
+            const closeDesktopMenu = document.getElementById('close-desktop-menu');
+            const desktopBlur = document.getElementById('desktop-blur');
+
+            // Function to hide navbar
+            function hideNavbar() {
+                if (navbar) {
+                    navbar.style.opacity = '0';
+                    navbar.style.visibility = 'hidden';
+                }
+            }
+
+            // Function to show navbar
+            function showNavbar() {
+                if (navbar) {
+                    navbar.style.opacity = '1';
+                    navbar.style.visibility = 'visible';
+                }
+            }
+
+            // Mobile menu functionality
+            if (mobileMenuButton && mobileMenu && closeMobileMenu && mobileBlur) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.add('active');
+                    hideNavbar();
+                });
+
+                closeMobileMenu.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    showNavbar();
+                });
+
+                mobileBlur.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    showNavbar();
+                });
+            }
+
+            // Desktop menu functionality
+            if (desktopMenuButton && desktopMenu && closeDesktopMenu && desktopBlur) {
+                desktopMenuButton.addEventListener('click', function() {
+                    desktopMenu.classList.add('active');
+                    hideNavbar();
+                });
+
+                closeDesktopMenu.addEventListener('click', function() {
+                    desktopMenu.classList.remove('active');
+                    showNavbar();
+                });
+
+                desktopBlur.addEventListener('click', function() {
+                    desktopMenu.classList.remove('active');
+                    showNavbar();
+                });
+            }
+
+            // Close menu when clicking on a link
+            const menuLinks = document.querySelectorAll('.menu-nav a');
+            if (menuLinks.length > 0) {
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (mobileMenu) {
+                            mobileMenu.classList.remove('active');
+                        }
+                        if (desktopMenu) {
+                            desktopMenu.classList.remove('active');
+                        }
+                        showNavbar();
+                    });
+                });
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        function initSmoothScroll() {
+            const anchorLinks = document.querySelectorAll('a[href^="#"]');
+            if (anchorLinks.length > 0) {
+                anchorLinks.forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+            }
+        }
+
+        // Navbar scroll effect with throttling - Configurable Version
+        function initNavbarScroll() {
+            const navbar = document.getElementById('navbar');
+            if (!navbar) return;
+
+            // Configuration - Easy to modify
+            const navbarConfig = {
+                // Define which sections should have which navbar color
+                sections: {
+                    'home': 'dark',        // navbar-dark (white text)
+                    'about': 'yellow',     // navbar-yellow (#FF9B21 text)
+                    'services': 'dark',    // navbar-dark (white text)
+                    'portfolio': 'yellow', // navbar-yellow (#FF9B21 text)
+                    'testimonials': 'dark',// navbar-dark (white text)
+                    'contact': 'dark'      // navbar-dark (white text)
+                },
+                // Offset for section detection (adjust if needed)
+                offset: 100,
+                // Default color if section not found in config
+                defaultColor: 'dark'
+            };
+
+            let ticking = false;
+
+            function updateNavbar() {
+                const sections = document.querySelectorAll('section');
+                const scrollPosition = window.scrollY;
+                
+                // Reset all navbar classes
+                navbar.classList.remove('navbar-scrolled', 'navbar-dark', 'navbar-yellow');
+                
+                // Determine which section is in view
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navbarConfig.offset;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                // Update navbar colors based on configuration
+                if (currentSection && navbarConfig.sections[currentSection]) {
+                    const colorClass = navbarConfig.sections[currentSection];
+                    navbar.classList.add(`navbar-${colorClass}`);
+                } else {
+                    // Use default color if section not found or no section in view
+                    navbar.classList.add(`navbar-${navbarConfig.defaultColor}`);
+                }
+                
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            });
+
+            // Initial call
+            updateNavbar();
+        }
+
+        // Create floating elements dynamically
+        function createFloatingElements() {
+            const sections = document.querySelectorAll('.section-with-floating');
+            
+            sections.forEach(section => {
+                for (let i = 0; i < 4; i++) {
+                    const element = document.createElement('div');
+                    element.classList.add('floating-element');
+                    
+                    // Random size between 50px and 120px
+                    const size = Math.floor(Math.random() * 70) + 50;
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                    
+                    // Random position
+                    element.style.top = `${Math.floor(Math.random() * 80)}%`;
+                    element.style.left = `${Math.floor(Math.random() * 80)}%`;
+                    
+                    // Random animation duration
+                    const duration = Math.floor(Math.random() * 20) + 10;
+                    element.style.animationDuration = `${duration}s`;
+                    
+                    section.appendChild(element);
+                }
+            });
+        }
+
+        // Scroll animations for all sections
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale, .about-image, .about-content, .skill-bar');
+            
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            animatedElements.forEach(element => observer.observe(element));
+        }
+
+        // Cursor follower functionality
+        function initCursorFollower() {
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorCircle = document.querySelector('.cursor-circle');
+            
+            if (!cursorDot || !cursorCircle) return;
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            let circleX = 0;
+            let circleY = 0;
+            
+            // Hide default cursor
+            document.body.style.cursor = 'none';
+            
+            // Update cursor position
+            function updateCursorPosition(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }
+            
+            // Animate cursor
+            function animateCursor() {
+                // Dot follows cursor directly
+                cursorDot.style.left = mouseX - 4 + 'px';
+                cursorDot.style.top = mouseY - 4 + 'px';
+                
+                // Circle follows with delay
+                circleX += (mouseX - circleX) * 0.1;
+                circleY += (mouseY - circleY) * 0.1;
+                
+                cursorCircle.style.left = circleX - 20 + 'px';
+                cursorCircle.style.top = circleY - 20 + 'px';
+                
+                requestAnimationFrame(animateCursor);
+            }
+            
+            // Add hover effects
+            function addHoverEffects() {
+                const hoverElements = document.querySelectorAll('a, button, .hover-lift, .portfolio-item, .btn-white, .btn-outline-white, .btn-outline-dark, .service-card, .testimonial-card, .contact-card');
+                
+                hoverElements.forEach(element => {
+                    element.addEventListener('mouseenter', function() {
+                        cursorDot.style.transform = 'scale(1.5)';
+                        cursorCircle.style.transform = 'scale(1.2)';
+                        cursorCircle.style.borderColor = '#FF9B21';
+                    });
+                    
+                    element.addEventListener('mouseleave', function() {
+                        cursorDot.style.transform = 'scale(1)';
+                        cursorCircle.style.transform = 'scale(1)';
+                        cursorCircle.style.borderColor = '#6B7280';
+                    });
+                });
+            }
+            
+            // Initialize cursor
+            document.addEventListener('mousemove', updateCursorPosition);
+            animateCursor();
+            addHoverEffects();
+            
+            // Hide cursor when leaving window
+            document.addEventListener('mouseleave', function() {
+                cursorDot.style.opacity = '0';
+                cursorCircle.style.opacity = '0';
+            });
+            
+            document.addEventListener('mouseenter', function() {
+                cursorDot.style.opacity = '1';
+                cursorCircle.style.opacity = '1';
+            });
+        }
+    </script>
+</body>
+</html>
