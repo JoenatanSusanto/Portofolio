@@ -265,6 +265,11 @@
         #desktop-menu {
             flex-direction: row-reverse;
         }
+
+        .desktop-position {
+            position: absolute;
+            top: 180px;
+        }
         
         .menu-content {
             width: 50%;
@@ -681,6 +686,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center; /* PERBAIKAN: Menambahkan justify-center */
             padding-top: 80px; /* Menambahkan padding untuk menghindari tabrakan dengan navbar */
             padding-bottom: 40px; /* Menambahkan padding bawah untuk menghindari pemotongan */
         }
@@ -1049,7 +1055,7 @@
         <div class="menu-blur" id="mobile-blur"></div>
     </div>
 
-    <!-- Hero Section Desktop -->
+    <!-- Hero Section Desktop - PERBAIKAN UTAMA -->
     <section id="home" class="hero-desktop bg-black animated-bg text-white relative overflow-hidden hero-full">
         <!-- Floating Elements -->
         <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
@@ -1059,7 +1065,7 @@
         <div class="floating-element" style="width: 60px; height: 60px; top: 40%; left: 50%;"></div>
         
         <div class="container mx-auto px-6 relative z-10 w-full">
-            <div class="flex flex-col md:flex-row items-center">
+            <div class="desktop-position flex flex-col md:flex-row items-center justify-center"> <!-- PERBAIKAN: Menambahkan justify-center -->
                 <div class="md:w-1/2 mb-10 md:mb-0 hero-content">
                     <h1 class="text-4xl md:text-6xl font-bold mb-6">Hello, I'm <span class="text-yellow">Joenatan Susanto</span></h1>
                     <h2 class="text-2xl md:text-3xl font-semibold mb-6">Creative Designer & UI/UX Designer</h2>
@@ -1169,7 +1175,7 @@
                     <div class="relative about-image scroll-animate-left">
                         <!-- Main About Photo -->
                         <div class="w-full h-96 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/Me/Profile2.png" alt="About Me" class="w-full h-full object-cover">
+                            <img src="images/Me/Profile2.png" alt="About Me" class="w-full h-full object-cover blur">
                         </div>
                         <!-- Secondary About Photo - Hanya tampil di desktop -->
                         <div class="absolute -bottom-6 -right-6 w-64 h-64 rounded-2xl shadow-xl overflow-hidden hidden md:block">
