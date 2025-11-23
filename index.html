@@ -973,6 +973,35 @@
                 margin: 0 auto;
             }
         }
+
+        /* NEW: Floating elements for About and Portfolio sections */
+        .about-floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 155, 33, 0.1);
+            animation: floatRandom 15s infinite linear;
+            z-index: 1;
+        }
+        
+        .portfolio-floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 155, 33, 0.1);
+            animation: floatRandom 15s infinite linear;
+            z-index: 1;
+        }
+        
+        /* NEW: About section with floating elements */
+        .about-with-floating {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* NEW: Portfolio section with floating elements */
+        .portfolio-with-floating {
+            position: relative;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="font-inter bg-light text-dark">
@@ -1168,7 +1197,13 @@
     </section>
 
     <!-- About Section - PERBAIKAN UTAMA -->
-    <section id="about" class="py-16 md:py-24 bg-white">
+    <section id="about" class="py-16 md:py-24 bg-gray-900 about-with-floating">
+        <!-- NEW: Floating Elements for About Section -->
+        <div class="about-floating-element" style="width: 80px; height: 80px; top: 10%; left: 5%;"></div>
+        <div class="about-floating-element" style="width: 120px; height: 120px; top: 20%; right: 10%;"></div>
+        <div class="about-floating-element" style="width: 60px; height: 60px; bottom: 30%; left: 15%;"></div>
+        <div class="about-floating-element" style="width: 100px; height: 100px; bottom: 20%; right: 5%;"></div>
+        
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/2">
@@ -1183,10 +1218,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:w-1/2 about-content scroll-animate-right">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 scroll-animate">About Me</h2>
-                    <p class="text-lg text-gray-600 mb-6 scroll-animate">I'm Joenatan Susanto, a multidisciplinary designer focused on creating impactful digital and visual experiences. At 18 years old, I've been honing my skills for the past three years in UI/UX Design, Logo Design, and 3D Modeling. I believe in a design approach that's not only aesthetic, but also functional and user-centric.</p>
-                    <p class="text-lg text-gray-600 mb-8 scroll-animate">Although I'm only 18, my practical experience has trained me to think strategically, solve problems creatively, and communicate visually. I'm always eager to take on new challenges and collaborate to create extraordinary work.</p>
+                <div class="md:w-1/2 about-content scroll-animate-right text-white">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 scroll-animate text-white">About Me</h2>
+                    <p class="text-lg text-gray-600 mb-6 scroll-animate text-white">I'm Joenatan Susanto, a multidisciplinary designer focused on creating impactful digital and visual experiences. At 18 years old, I've been honing my skills for the past three years in UI/UX Design, Logo Design, and 3D Modeling. I believe in a design approach that's not only aesthetic, but also functional and user-centric.</p>
+                    <p class="text-lg text-gray-600 mb-8 scroll-animate text-white">Although I'm only 18, my practical experience has trained me to think strategically, solve problems creatively, and communicate visually. I'm always eager to take on new challenges and collaborate to create extraordinary work.</p>
                     
                     <div class="grid grid-cols-2 gap-6 mb-8">
                         <div class="scroll-animate">
@@ -1334,23 +1369,29 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-16 md:py-24 bg-white">
+    <section id="portfolio" class="py-16 md:py-24 bg-gray-900 text-white portfolio-with-floating">
+        <!-- NEW: Floating Elements for Portfolio Section -->
+        <div class="portfolio-floating-element" style="width: 70px; height: 70px; top: 10%; left: 5%;"></div>
+        <div class="portfolio-floating-element" style="width: 90px; height: 90px; top: 20%; right: 10%;"></div>
+        <div class="portfolio-floating-element" style="width: 50px; height: 50px; bottom: 30%; left: 15%;"></div>
+        <div class="portfolio-floating-element" style="width: 80px; height: 80px; bottom: 20%; right: 5%;"></div>
+        
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 scroll-animate">My Portfolio</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto scroll-animate">A selection of my recent projects that showcase my design approach and problem-solving skills.</p>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto scroll-animate text-white">A selection of my recent projects that showcase my design approach and problem-solving skills.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Portfolio Item 1 -->
                 <div class="group portfolio-item relative overflow-hidden rounded-2xl shadow-lg hover-lift scroll-animate-scale">
                     <div class="h-64 rounded-2xl overflow-hidden">
-                        <img src="images//Portofolio/Suara_Kota.png" alt="Suara-Kota App" class="w-full h-full object-cover">
+                        <img src="images/Portofolio/project-design-suara-kota/Suara_Kota.png" alt="Suara-Kota App" class="w-full h-full object-cover">
                     </div>
                     <div class="portfolio-overlay absolute inset-0 bg-black/70 flex flex-col justify-end p-6 transition-all duration-300">
                         <h3 class="text-white text-xl font-bold mb-2">UI/UX</h3>
                         <p class="text-gray-300 mb-4">UI/UX design for the experience of reporting city conditions via an application</p>
-                        <a href="/document/Suara kota.pdf" class="text-white font-semibold inline-flex items-center">
+                        <a href="Portofolio/project-suara-kota.html" class="text-white font-semibold inline-flex items-center">
                             View Project <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
@@ -1359,12 +1400,12 @@
                 <!-- Portfolio Item 2 -->
                 <div class="group portfolio-item relative overflow-hidden rounded-2xl shadow-lg hover-lift scroll-animate-scale" style="transition-delay: 0.2s">
                     <div class="h-64 rounded-2xl overflow-hidden">
-                        <img src="images/Portofolio/Volge.png" alt="Logo Volge" class="w-full h-full object-cover">
+                        <img src="images/Portofolio/project-logo-volge/Volge.png" alt="Logo Volge" class="w-full h-full object-cover">
                     </div>
                     <div class="portfolio-overlay absolute inset-0 bg-black/70 flex flex-col justify-end p-6 transition-all duration-300">
                         <h3 class="text-white text-xl font-bold mb-2">Logo Design</h3>
                         <p class="text-gray-300 mb-4">volge which has a special impression.</p>
-                        <a href="#" class="text-white font-semibold inline-flex items-center">
+                        <a href="Portofolio/Project-logo-volge.html" class="text-white font-semibold inline-flex items-center">
                             View Project <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
@@ -1373,12 +1414,12 @@
                 <!-- Portfolio Item 3 -->
                 <div class="group portfolio-item relative overflow-hidden rounded-2xl shadow-lg hover-lift scroll-animate-scale" style="transition-delay: 0.4s">
                     <div class="h-64 rounded-2xl overflow-hidden">
-                        <img src="images/Portofolio/Car_Design.png" alt="Car Modelling" class="w-full h-full object-cover">
+                        <img src="images/Portofolio/project-3d-roadkeeper/0.png" alt="Car Modelling" class="w-full h-full object-cover">
                     </div>
                     <div class="portfolio-overlay absolute inset-0 bg-black/70 flex flex-col justify-end p-6 transition-all duration-300">
                         <h3 class="text-white text-xl font-bold mb-2">3D Modelling</h3>
                         <p class="text-gray-300 mb-4">sophisticated street cleaning car design</p>
-                        <a href="#" class="text-white font-semibold inline-flex items-center">
+                        <a href="Portofolio/Project-3d-roadkeeper.html" class="text-white font-semibold inline-flex items-center">
                             View Project <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
@@ -1386,7 +1427,7 @@
             </div>
             
             <div class="text-center mt-12">
-                <a href="#" class="border-2 border-gray-800 text-gray-800 hover:border-white hover:bg-yellow hover:text-white px-8 py-3 rounded-full font-semibold inline-flex items-center transition-all duration-300 scroll-animate">
+                <a href="view-all-project.html" class="border-2 border-white text-white hover:border-yellow hover:bg-yellow hover:text-white px-8 py-3 rounded-full font-semibold inline-flex items-center transition-all duration-300 scroll-animate">
                     View All Projects <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
@@ -1457,7 +1498,7 @@
                             <img src="images/testimonial-3.jpg" alt="Cia" class="w-full h-full object-cover">
                         </div>
                         <div>
-                            <h4 class="font-bold">Cia</h4>
+                            <h4 class="font-bold">Yan</h4>
                             <p class="text-gray-400 text-sm">No Information</p>
                         </div>
                     </div>
@@ -1750,12 +1791,20 @@
 
         // Create floating elements dynamically
         function createFloatingElements() {
-            const sections = document.querySelectorAll('.section-with-floating');
+            const sections = document.querySelectorAll('.section-with-floating, .about-with-floating, .portfolio-with-floating');
             
             sections.forEach(section => {
                 for (let i = 0; i < 4; i++) {
                     const element = document.createElement('div');
-                    element.classList.add('floating-element');
+                    
+                    // Determine the appropriate class based on section
+                    if (section.classList.contains('about-with-floating')) {
+                        element.classList.add('about-floating-element');
+                    } else if (section.classList.contains('portfolio-with-floating')) {
+                        element.classList.add('portfolio-floating-element');
+                    } else {
+                        element.classList.add('floating-element');
+                    }
                     
                     // Random size between 50px and 120px
                     const size = Math.floor(Math.random() * 70) + 50;
