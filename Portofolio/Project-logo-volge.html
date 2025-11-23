@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volge Logo - Joenatan Susanto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#1E40AF',
+                        accent: '#EF4444',
+                        dark: '#1F2937',
+                        light: '#F9FAFB',
+                        yellow: '#FF9B21'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS yang sama seperti portfolio utama */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Enhanced Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .loader-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+        }
+        
+        .loader {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(255, 155, 33, 0.2);
+            border-radius: 50%;
+            border-top-color: #FF9B21;
+            animation: spin 1.5s ease-in-out infinite;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .loader-inner {
+            width: 80%;
+            height: 80%;
+            border: 3px solid rgba(255, 155, 33, 0.4);
+            border-radius: 50%;
+            border-top-color: #FF9B21;
+            animation: spin 1s ease-in-out infinite reverse;
+            position: absolute;
+            top: 10%;
+            left: 10%;
+        }
+        
+        .loader-dot {
+            width: 15px;
+            height: 15px;
+            background-color: #FF9B21;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .loading-subtext {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #FF9B21;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+        }
+        
+        /* Animated Background for Hero */
+        .animated-bg {
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+        }
+        
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 155, 33, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 155, 33, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 155, 33, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 155, 33, 0.1);
+            animation: floatRandom 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+        
+        @keyframes floatRandom {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, 40px) rotate(90deg);
+            }
+            50% {
+                transform: translate(40px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(20px, -40px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        /* Enhanced Menu Styles */
+        #mobile-menu, #desktop-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 40;
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+        
+        #mobile-menu.active, #desktop-menu.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+        
+        /* Enhanced Desktop Menu */
+        #desktop-menu {
+            flex-direction: row-reverse;
+        }
+        
+        .menu-content {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 155, 33, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 155, 33, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .menu-blur {
+            width: 50%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        
+        .menu-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #FF9B21, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .menu-header:hover::after {
+            opacity: 1;
+        }
+        
+        .menu-logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-logo::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background-color: #FF9B21;
+            transition: left 0.3s ease;
+        }
+        
+        .menu-logo:hover {
+            color: #FF9B21;
+            transform: translateY(-2px);
+        }
+        
+        .menu-logo:hover::before {
+            left: 0;
+        }
+        
+        .menu-close {
+            color: white;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-close::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 155, 33, 0.1);
+            transition: left 0.3s ease;
+            border-radius: 50%;
+        }
+        
+        .menu-close:hover {
+            color: #FF9B21;
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        .menu-close:hover::before {
+            left: 0;
+        }
+        
+        .menu-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 3rem;
+        }
+        
+        .menu-nav a {
+            color: white;
+            font-size: 2.5rem;
+            margin: 1.5rem 0;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateX(-30px);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        #mobile-menu.active .menu-nav a,
+        #desktop-menu.active .menu-nav a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .menu-nav a:nth-child(1) { transition-delay: 0.1s; }
+        .menu-nav a:nth-child(2) { transition-delay: 0.2s; }
+        .menu-nav a:nth-child(3) { transition-delay: 0.3s; }
+        .menu-nav a:nth-child(4) { transition-delay: 0.4s; }
+        .menu-nav a:nth-child(5) { transition-delay: 0.5s; }
+        .menu-nav a:nth-child(6) { transition-delay: 0.6s; }
+        
+        .menu-nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 155, 33, 0.1), transparent);
+            transition: width 0.4s ease;
+            z-index: -1;
+            border-radius: 8px;
+        }
+        
+        .menu-nav a::after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #FF9B21;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-nav a:hover::before {
+            width: 100%;
+        }
+        
+        .menu-nav a:hover::after {
+            opacity: 1;
+            left: 0;
+        }
+        
+        .menu-nav a:hover {
+            color: #FF9B21;
+            transform: translateX(15px);
+            text-shadow: 0 0 10px rgba(255, 155, 33, 0.5);
+        }
+        
+        /* Enhanced Navbar Styles */
+        .navbar-scrolled {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .navbar-scrolled .nav-logo,
+        .navbar-scrolled .menu-button {
+            color: #FF9B21 !important;
+        }
+        
+        .navbar-dark .nav-logo,
+        .navbar-dark .menu-button {
+            color: white !important;
+        }
+
+        .navbar-yellow .nav-logo,
+        .navbar-yellow .menu-button {
+            color: #1F2937 !important;
+        }
+        
+        /* Enhanced Navbar Logo and Button Hover Effects */
+        .nav-logo {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background-color: #FF9B21;
+            transition: left 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            color: #FF9B21 !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-logo:hover::before {
+            left: 0;
+        }
+        
+        .menu-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        
+        .menu-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 155, 33, 0.1);
+            transition: left 0.3s ease;
+            border-radius: 8px;
+        }
+        
+        .menu-button:hover {
+            color: #FF9B21 !important;
+            transform: scale(1.1);
+        }
+        
+        .menu-button:hover::before {
+            left: 0;
+        }
+        
+        /* Button hover effects */
+        .btn-white {
+            background-color: white;
+            color: #1F2937;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-white:hover {
+            background-color: #FF9B21;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 155, 33, 0.3);
+        }
+        
+        .btn-outline-white {
+            border: 2px solid white;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-white:hover {
+            background-color: #FF9B21;
+            border-color: #FF9B21;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 155, 33, 0.3);
+        }
+        
+        .btn-outline-dark {
+            border: 2px solid #1F2937;
+            color: #1F2937;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-dark:hover {
+            background-color: #FF9B21;
+            border-color: #FF9B21;
+            color: white;
+        }
+        
+        /* Service Card Hover Effects */
+        .service-card {
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 155, 33, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 155, 33, 0.2);
+            border: 1px solid rgba(255, 155, 33, 0.3);
+        }
+        
+        /* Portfolio hover effect */
+        .portfolio-item:hover .portfolio-overlay {
+            background-color: rgba(255, 155, 33, 0.9);
+        }
+        
+        /* Scroll Animation Styles */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-animate-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-animate-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-animate-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-animate-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-animate-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-animate-scale.animated {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Floating elements for other sections */
+        .section-with-floating {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Cursor Follower Styles */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: #6B7280; /* Gray color */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #6B7280; /* Gray color */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transition: all 0.2s ease;
+        }
+        
+        /* Hide cursor follower on mobile */
+        @media (max-width: 768px) {
+            .cursor-dot,
+            .cursor-circle {
+                display: none;
+            }
+        }
+        
+        /* Project Detail Styles */
+        .project-hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        .down-section {
+            position: relative;
+            top: 0px;
+        }
+
+        @media (max-width:768px) {
+            .down-section {
+                position: relative;
+                top: 30px;
+            }
+        }
+
+        @media (max-width:1023px) {
+            .down-section {
+                position: relative;
+                top: 30px;
+            }
+        }
+        
+        .project-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-info-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+        
+        .tech-badge {
+            display: inline-block;
+            background: rgba(255, 155, 33, 0.2);
+            color: #FF9B21;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 155, 33, 0.2);
+        }
+        
+        /* Back to Portfolio Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: #FF9B21;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body class="font-inter bg-black text-white">
+    <!-- Cursor Follower -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- Enhanced Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <div class="loader-inner"></div>
+            <div class="loader-dot"></div>
+        </div>
+        <div class="loading-text">Loading Project</div>
+        <div class="loading-subtext">Volge Logo</div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="navbar" class="fixed w-full bg-transparent z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold nav-logo text-white">JS</a>
+                
+                <!-- Desktop Menu Button -->
+                <button id="desktop-menu-button" class="menu-button text-white hidden md:block">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="menu-button text-white md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Enhanced Desktop Menu -->
+    <div id="desktop-menu" class="desktop-menu">
+        <div class="menu-content">
+            <div class="menu-header">
+                <a href="index.html" class="text-2xl font-bold menu-logo">JS</a>
+                <button id="close-desktop-menu" class="menu-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="menu-nav">
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="index.html#testimonials">Testimonials</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+        <div class="menu-blur" id="desktop-blur"></div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="menu-content">
+            <div class="menu-header">
+                <a href="index.html" class="text-2xl font-bold menu-logo">JS</a>
+                <button id="close-menu" class="menu-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="menu-nav">
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="index.html#testimonials">Testimonials</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+        <div class="menu-blur" id="mobile-blur"></div>
+    </div>
+
+    <!-- Project Hero Section -->
+    <section class="project-hero animated-bg relative overflow-hidden">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 20%; right: 15%;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; bottom: 30%; left: 20%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <a href="../view-all-project.html" class="back-btn mb-8 inline-block">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Portfolio
+                </a>
+                
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <div class="project-image">
+                            <img src="../images/Portofolio/project-logo-volge/1.png" alt="Volge Logo" class="w-full h-auto">
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Volge</h1>
+                        <p class="text-xl text-gray-300 mb-6">Creating a distinctive logo that captures the essence of Volge with a special impression that resonates with their target audience.</p>
+                        
+                        <div class="project-info-card mb-8">
+                            <h3 class="text-xl font-bold mb-4 text-yellow">Project Information</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-gray-400">Category</p>
+                                    <p class="font-semibold">Logo Design & Brand Identity</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Client</p>
+                                    <p class="font-semibold">No Information</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Date</p>
+                                    <p class="font-semibold">July 2025</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Duration</p>
+                                    <p class="font-semibold">1 Hour</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="tech-badge">Adobe Illustrator</span>
+                            <span class="tech-badge">Logo Design</span>
+                            <span class="tech-badge">Brand Identity</span>
+                            <span class="tech-badge">Typography</span>
+                            <span class="tech-badge">Color Theory</span>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <a href="#galery" class="btn-white px-6 py-3 rounded-full font-semibold flex items-center">
+                                <i class="fas fa-eye mr-2"></i> View Logo Variations
+                            </a>
+                            <a href="" class="hidden">
+                                <i class="fas fa-external-link-alt mr-2"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview Section -->
+    <section class="py-16 md:py-24 bg-gray-900 section-with-floating down-section">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 80px; height: 80px; top: 10%; left: 5%;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 20%; right: 10%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center scroll-animate">Project Overview</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="scroll-animate">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow">The Challenge</h3>
+                        <p class="text-gray-300 mb-6">Volge needed a logo that would establish a strong brand identity while conveying their unique value proposition. The challenge was to create a design that would be memorable, versatile across different media, and resonate with their target audience.</p>
+                        <p class="text-gray-300">The logo needed to balance modern aesthetics with timeless appeal, ensuring it would remain relevant and effective for years to come while standing out in a competitive market.</p>
+                    </div>
+                    
+                    <div class="scroll-animate" style="transition-delay: 0.2s">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow">The Solution</h3>
+                        <p class="text-gray-300 mb-6">The Volge logo combines geometric precision with organic flow, creating a distinctive mark that represents innovation and reliability. The design features clean lines and balanced proportions that work effectively at any scale.</p>
+                        <p class="text-gray-300">The color palette was carefully selected to evoke trust and professionalism while maintaining visual appeal. The typography complements the logo mark, creating a cohesive brand identity system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Process Section -->
+    <section class="py-16 md:py-24 bg-black section-with-floating">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 60px; height: 60px; top: 20%; left: 10%;"></div>
+        <div class="floating-element" style="width: 100px; height: 100px; top: 30%; right: 15%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center scroll-animate">Design Process</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="service-card bg-gray-800 p-6 rounded-2xl shadow-lg text-center scroll-animate">
+                        <div class="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-search text-2xl text-yellow"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Research</h3>
+                        <p class="text-gray-300">Analyzed the brand's values, target audience, and competitive landscape to inform the design direction.</p>
+                    </div>
+                    
+                    <div class="service-card bg-gray-800 p-6 rounded-2xl shadow-lg text-center scroll-animate" style="transition-delay: 0.2s">
+                        <div class="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-lightbulb text-2xl text-yellow"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Concept</h3>
+                        <p class="text-gray-300">Developed multiple design concepts exploring different visual approaches and brand expressions.</p>
+                    </div>
+                    
+                    <div class="service-card bg-gray-800 p-6 rounded-2xl shadow-lg text-center scroll-animate" style="transition-delay: 0.4s">
+                        <div class="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-pen-nib text-2xl text-yellow"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Refinement</h3>
+                        <p class="text-gray-300">Refined the selected concept, focusing on typography, color, and composition details.</p>
+                    </div>
+                    
+                    <div class="service-card bg-gray-800 p-6 rounded-2xl shadow-lg text-center scroll-animate" style="transition-delay: 0.6s">
+                        <div class="w-16 h-16 bg-yellow/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-palette text-2xl text-yellow"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Finalization</h3>
+                        <p class="text-gray-300">Prepared final logo files and brand guidelines for various applications and media.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="py-16 md:py-24 bg-gray-900 section-with-floating">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 70px; height: 70px; top: 15%; left: 8%;"></div>
+        <div class="floating-element" style="width: 90px; height: 90px; top: 25%; right: 12%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center scroll-animate">Design Elements</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="scroll-animate">
+                        <div class="flex items-start mb-6">
+                            <div class="w-12 h-12 bg-yellow/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-shapes text-yellow"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Geometric Precision</h3>
+                                <p class="text-gray-300">Clean, balanced geometric forms that create a sense of stability and professionalism.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-6">
+                            <div class="w-12 h-12 bg-yellow/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-palette text-yellow"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Strategic Color</h3>
+                                <p class="text-gray-300">Carefully selected color palette that evokes trust, innovation, and approachability.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-yellow/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-font text-yellow"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Typography</h3>
+                                <p class="text-gray-300">Custom typography that complements the logo mark and enhances brand recognition.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scroll-animate" style="transition-delay: 0.2s">
+                        <div class="flex items-start mb-6">
+                            <div class="w-12 h-12 bg-yellow/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-expand-arrows-alt text-yellow"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Scalability</h3>
+                                <p class="text-gray-300">Designed to maintain clarity and impact across all sizes, from favicon to billboard.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-6">
+                            <div class="w-12 h-12 bg-yellow/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-magic text-yellow"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Versatility</h3>
+                                <p class="text-gray-300">Works effectively in full color, single color, and reversed applications.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-yellow/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-brain text-yellow"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">Memorability</h3>
+                                <p class="text-gray-300">Distinctive design that creates a lasting impression and enhances brand recall.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Gallery Section -->
+    <section id="galery" class="py-16 md:py-24 bg-black section-with-floating">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 60px; height: 60px; top: 20%; left: 10%;"></div>
+        <div class="floating-element" style="width: 100px; height: 100px; top: 30%; right: 15%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center scroll-animate">Logo Variations</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="gallery-item scroll-animate-scale">
+                        <img src="../images/Portofolio/project-logo-volge/1.png" alt="Volge Logo Primary" class="w-full h-auto">
+                    </div>
+                    <div class="gallery-item scroll-animate-scale" style="transition-delay: 0.2s">
+                        <img src="../images/Portofolio/project-logo-volge/2.png" alt="Volge Logo Monochrome" class="w-full h-auto">
+                    </div>
+                    <div class="gallery-item scroll-animate-scale" style="transition-delay: 0.4s">
+                        <img src="../images/Portofolio/project-logo-volge/3.png" alt="Volge Logo Reversed" class="w-full h-auto">
+                    </div>
+                    <div class="gallery-item scroll-animate-scale" style="transition-delay: 0.6s">
+                        <img src="../images/Portofolio/project-logo-volge/4.png" alt="Volge Logo Application" class="w-full h-auto">
+                    </div>
+                    <div class="gallery-item scroll-animate-scale" style="transition-delay: 0.8s">
+                        <img src="../images/Portofolio/project-logo-volge/5.png" alt="Volge Logo Typography" class="w-full h-auto">
+                    </div>
+                    <div class="gallery-item scroll-animate-scale" style="transition-delay: 1s">
+                        <img src="../images/Portofolio/project-logo-volge/6.png" alt="Volge Logo Color Variations" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="py-16 md:py-24 bg-gray-900 section-with-floating">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 80px; height: 80px; top: 10%; left: 5%;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 20%; right: 10%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center scroll-animate">Results & Impact</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="scroll-animate">
+                        <div class="text-4xl font-bold text-yellow mb-2">85%</div>
+                        <p class="text-gray-300">luxury</p>
+                    </div>
+                    <div class="scroll-animate" style="transition-delay: 0.2s">
+                        <div class="text-4xl font-bold text-yellow mb-2">1 Hour</div>
+                        <p class="text-gray-300">Design Completion</p>
+                    </div>
+                    <div class="scroll-animate" style="transition-delay: 0.4s">
+                        <div class="text-4xl font-bold text-yellow mb-2">6</div>
+                        <p class="text-gray-300">Logo Variations</p>
+                    </div>
+                </div>
+                
+                <div class="mt-12 scroll-animate hidden">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow">Client Testimonial</h3>
+                    <div class="bg-gray-800 p-8 rounded-2xl shadow-lg">
+                        <p class="text-gray-300 italic mb-6">"Joenatan delivered an exceptional logo design that perfectly captured our brand's essence. His ability to understand our vision and translate it into a distinctive visual identity was impressive. The logo has received positive feedback from our stakeholders and has become a strong foundation for our brand identity."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full mr-4 overflow-hidden bg-yellow/20 flex items-center justify-center">
+                                <i class="fas fa-user text-yellow"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Volge Team</h4>
+                                <p class="text-gray-400 text-sm">Brand Client</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Project Section -->
+    <section class="py-16 md:py-24 bg-black section-with-floating">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 60px; height: 60px; top: 20%; left: 10%;"></div>
+        <div class="floating-element" style="width: 100px; height: 100px; top: 30%; right: 15%;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 scroll-animate">View Next Project</h2>
+                <p class="text-lg text-gray-300 mb-12 scroll-animate">Check out another one of my design projects</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <a href="project-roadkeeper.html" class="group portfolio-item relative overflow-hidden rounded-2xl shadow-lg hover-lift scroll-animate">
+                        <div class="h-64 rounded-2xl overflow-hidden">
+                            <img src="../images/Portofolio/project-3d-roadkeeper/0.png" alt="RoadKeeper 3D Model" class="w-full h-full object-cover">
+                        </div>
+                        <div class="portfolio-overlay absolute inset-0 bg-black/70 flex flex-col justify-end p-6 transition-all duration-300">
+                            <h3 class="text-white text-xl font-bold mb-2">RoadKeeper</h3>
+                            <p class="text-gray-300 mb-4">3D design of street cleaning car and city road condition reporting</p>
+                            <span class="text-white font-semibold inline-flex items-center">
+                                View Project <i class="fas fa-arrow-right ml-2"></i>
+                            </span>
+                        </div>
+                    </a>
+                    
+                    <a href="project-suara-kota.html" class="group portfolio-item relative overflow-hidden rounded-2xl shadow-lg hover-lift scroll-animate" style="transition-delay: 0.2s">
+                        <div class="h-64 rounded-2xl overflow-hidden">
+                            <img src="../images/Portofolio/project-design-suara-kota/Suara_Kota.png" alt="Suara Kota App" class="w-full h-full object-cover">
+                        </div>
+                        <div class="portfolio-overlay absolute inset-0 bg-black/70 flex flex-col justify-end p-6 transition-all duration-300">
+                            <h3 class="text-white text-xl font-bold mb-2">Suara Kota APP</h3>
+                            <p class="text-gray-300 mb-4">UI/UX design for the experience of reporting city conditions via an application that simplifies citizen engagement with urban services.</p>
+                            <span class="text-white font-semibold inline-flex items-center">
+                                View Project <i class="fas fa-arrow-right ml-2"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="text-2xl font-bold text-white">JS</a>
+                    <p class="mt-2 text-gray-400">Creating beautiful digital experiences</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-yellow transition-colors">
+                        <i class="fab fa-tiktok text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joe_creativee?igsh=aTBtdHYzNW12M3lp" class="text-gray-400 hover:text-yellow transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://github.com/JoenatanSusanto?tab=overview&from=2025-11-01&to=2025-11-22" class="text-gray-400 hover:text-yellow transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+                
+                <div class="text-gray-400">
+                    <p>&copy; 2025 Joenatan Susanto. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Loading screen with progress animation
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const progressBar = document.getElementById('progress-bar');
+            
+            if (loadingScreen && progressBar) {
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 15;
+                    if (progress > 100) progress = 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    if (progress === 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            loadingScreen.style.opacity = '0';
+                            setTimeout(() => {
+                                loadingScreen.style.display = 'none';
+                            }, 800);
+                        }, 500);
+                    }
+                }, 200);
+            }
+        });
+
+        // Initialize all functionality when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initMenus();
+            initSmoothScroll();
+            initNavbarScroll();
+            createFloatingElements();
+            initScrollAnimations();
+            initCursorFollower();
+        });
+
+        // Menu functionality
+        function initMenus() {
+            const navbar = document.getElementById('navbar');
+            
+            // Mobile menu elements
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMobileMenu = document.getElementById('close-menu');
+            const mobileBlur = document.getElementById('mobile-blur');
+
+            // Desktop menu elements
+            const desktopMenuButton = document.getElementById('desktop-menu-button');
+            const desktopMenu = document.getElementById('desktop-menu');
+            const closeDesktopMenu = document.getElementById('close-desktop-menu');
+            const desktopBlur = document.getElementById('desktop-blur');
+
+            // Function to hide navbar
+            function hideNavbar() {
+                if (navbar) {
+                    navbar.style.opacity = '0';
+                    navbar.style.visibility = 'hidden';
+                }
+            }
+
+            // Function to show navbar
+            function showNavbar() {
+                if (navbar) {
+                    navbar.style.opacity = '1';
+                    navbar.style.visibility = 'visible';
+                }
+            }
+
+            // Mobile menu functionality
+            if (mobileMenuButton && mobileMenu && closeMobileMenu && mobileBlur) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.add('active');
+                    hideNavbar();
+                });
+
+                closeMobileMenu.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    showNavbar();
+                });
+
+                mobileBlur.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    showNavbar();
+                });
+            }
+
+            // Desktop menu functionality
+            if (desktopMenuButton && desktopMenu && closeDesktopMenu && desktopBlur) {
+                desktopMenuButton.addEventListener('click', function() {
+                    desktopMenu.classList.add('active');
+                    hideNavbar();
+                });
+
+                closeDesktopMenu.addEventListener('click', function() {
+                    desktopMenu.classList.remove('active');
+                    showNavbar();
+                });
+
+                desktopBlur.addEventListener('click', function() {
+                    desktopMenu.classList.remove('active');
+                    showNavbar();
+                });
+            }
+
+            // Close menu when clicking on a link
+            const menuLinks = document.querySelectorAll('.menu-nav a');
+            if (menuLinks.length > 0) {
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (mobileMenu) {
+                            mobileMenu.classList.remove('active');
+                        }
+                        if (desktopMenu) {
+                            desktopMenu.classList.remove('active');
+                        }
+                        showNavbar();
+                    });
+                });
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        function initSmoothScroll() {
+            const anchorLinks = document.querySelectorAll('a[href^="#"]');
+            if (anchorLinks.length > 0) {
+                anchorLinks.forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+            }
+        }
+
+        // Navbar scroll effect with throttling - Configurable Version
+        function initNavbarScroll() {
+            const navbar = document.getElementById('navbar');
+            if (!navbar) return;
+
+            // Configuration - Easy to modify
+            const navbarConfig = {
+                // Define which sections should have which navbar color
+                sections: {
+                    'home': 'dark',        // navbar-dark (white text)
+                    'home-mobile': 'dark', // navbar-dark (white text) for mobile hero
+                    'about': 'yellow',     // navbar-yellow (#FF9B21 text)
+                    'services': 'dark',    // navbar-dark (white text)
+                    'portfolio': 'yellow', // navbar-yellow (#FF9B21 text)
+                    'testimonials': 'dark',// navbar-dark (white text)
+                    'contact': 'dark'      // navbar-dark (white text)
+                },
+                // Offset for section detection (adjust if needed)
+                offset: 100,
+                // Default color if section not found in config
+                defaultColor: 'dark'
+            };
+
+            let ticking = false;
+
+            function updateNavbar() {
+                const sections = document.querySelectorAll('section');
+                const scrollPosition = window.scrollY;
+                
+                // Reset all navbar classes
+                navbar.classList.remove('navbar-scrolled', 'navbar-dark', 'navbar-yellow');
+                
+                // Determine which section is in view
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navbarConfig.offset;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                // Update navbar colors based on configuration
+                if (currentSection && navbarConfig.sections[currentSection]) {
+                    const colorClass = navbarConfig.sections[currentSection];
+                    navbar.classList.add(`navbar-${colorClass}`);
+                } else {
+                    // Use default color if section not found or no section in view
+                    navbar.classList.add(`navbar-${navbarConfig.defaultColor}`);
+                }
+                
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            });
+
+            // Initial call
+            updateNavbar();
+        }
+
+        // Create floating elements dynamically
+        function createFloatingElements() {
+            const sections = document.querySelectorAll('.section-with-floating');
+            
+            sections.forEach(section => {
+                for (let i = 0; i < 4; i++) {
+                    const element = document.createElement('div');
+                    element.classList.add('floating-element');
+                    
+                    // Random size between 50px and 120px
+                    const size = Math.floor(Math.random() * 70) + 50;
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                    
+                    // Random position
+                    element.style.top = `${Math.floor(Math.random() * 80)}%`;
+                    element.style.left = `${Math.floor(Math.random() * 80)}%`;
+                    
+                    // Random animation duration
+                    const duration = Math.floor(Math.random() * 20) + 10;
+                    element.style.animationDuration = `${duration}s`;
+                    
+                    section.appendChild(element);
+                }
+            });
+        }
+
+        // Scroll animations for all sections
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale');
+            
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            animatedElements.forEach(element => observer.observe(element));
+        }
+
+        // Cursor follower functionality
+        function initCursorFollower() {
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorCircle = document.querySelector('.cursor-circle');
+            
+            if (!cursorDot || !cursorCircle) return;
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            let circleX = 0;
+            let circleY = 0;
+            
+            // Hide default cursor
+            document.body.style.cursor = 'none';
+            
+            // Update cursor position
+            function updateCursorPosition(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }
+            
+            // Animate cursor
+            function animateCursor() {
+                // Dot follows cursor directly
+                cursorDot.style.left = mouseX - 4 + 'px';
+                cursorDot.style.top = mouseY - 4 + 'px';
+                
+                // Circle follows with delay
+                circleX += (mouseX - circleX) * 0.1;
+                circleY += (mouseY - circleY) * 0.1;
+                
+                cursorCircle.style.left = circleX - 20 + 'px';
+                cursorCircle.style.top = circleY - 20 + 'px';
+                
+                requestAnimationFrame(animateCursor);
+            }
+            
+            // Add hover effects
+            function addHoverEffects() {
+                const hoverElements = document.querySelectorAll('a, button, .hover-lift, .portfolio-item, .btn-white, .btn-outline-white, .btn-outline-dark, .service-card, .gallery-item');
+                
+                hoverElements.forEach(element => {
+                    element.addEventListener('mouseenter', function() {
+                        cursorDot.style.transform = 'scale(1.5)';
+                        cursorCircle.style.transform = 'scale(1.2)';
+                        cursorCircle.style.borderColor = '#FF9B21';
+                    });
+                    
+                    element.addEventListener('mouseleave', function() {
+                        cursorDot.style.transform = 'scale(1)';
+                        cursorCircle.style.transform = 'scale(1)';
+                        cursorCircle.style.borderColor = '#6B7280';
+                    });
+                });
+            }
+            
+            // Initialize cursor
+            document.addEventListener('mousemove', updateCursorPosition);
+            animateCursor();
+            addHoverEffects();
+            
+            // Hide cursor when leaving window
+            document.addEventListener('mouseleave', function() {
+                cursorDot.style.opacity = '0';
+                cursorCircle.style.opacity = '0';
+            });
+            
+            document.addEventListener('mouseenter', function() {
+                cursorDot.style.opacity = '1';
+                cursorCircle.style.opacity = '1';
+            });
+        }
+    </script>
+</body>
+</html>
